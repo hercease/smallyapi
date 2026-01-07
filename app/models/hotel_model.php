@@ -1648,7 +1648,7 @@ class Hotelmodels {
             $status = $data['booking']['status'];
             $vat = $data['booking']['hotel']['supplier']['vatNumber'] ?? "VVV";
             $xxx = $data['booking']['hotel']['supplier']['name'] ?? "XXX";
-            $total_nights = strtotime($checkOut) - strtotime($checkIn) ?? 0;
+            $total_nights = strtotime($checkout) - strtotime($checkin) ?? 0;
             $total_nights = floor($total_nights / (60 * 60 * 24));
 
             $prepare_json = [
