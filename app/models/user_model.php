@@ -132,6 +132,8 @@ class UserModel {
             $user_id = $this->sanitizeInput($params['user_id']) ?? null;
             $timezone = $params['timezone'] ?? 'Africa/Lagos';
             date_default_timezone_set($timezone);
+            $added_at = date('Y-m-d H:i:s');
+            $expires_at = date('Y-m-d H:i:s', strtotime('+15 minutes'));
 
             if (!$cart_item_id || !$room_data || !$rate_data || !$booking_details) {
                 throw new Exception('Missing required cart data');
@@ -162,7 +164,7 @@ class UserModel {
                 $is_new = false;
             } else {
                 // Add new item
-                $this->insertCartItem($cart_item_id, $user_check_id, $user_check_session, $room_data, $rate_data, $booking_details);
+                $this->insertCartItem($cart_item_id, $user_check_id, $user_check_session, $room_data, $rate_data, $booking_details, $added_at, $expires_at);
                 $message = 'Item added to cart successfully';
                 $is_new = true;
             }
@@ -256,7 +258,7 @@ class UserModel {
     }
 
 
-    private function insertCartItem($cart_item_id, $user_id, $session_id, $room_data, $rate_data, $booking_details)
+    private function insertCartItem($cart_item_id, $user_id, $session_id, $room_data, $rate_data, $booking_details, $added_at, $expires_at)
     {
         // Determine if user is logged in
         $isLoggedIn = isset($user_id) && $user_id !== '' && $user_id !== null && strtolower($user_id) !== 'null' && $user_id != 0;
@@ -271,7 +273,7 @@ class UserModel {
             booking_details, 
             added_at, 
             expires_at
-        ) VALUES (?, ?, ?, ?, ?, ?, NOW(), DATE_ADD(NOW(), INTERVAL 15 MINUTE))";
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         $stmt = $this->db->prepare($sql);
         if (!$stmt) {
@@ -295,7 +297,9 @@ class UserModel {
             $sessionValue,
             $json_room_data,
             $json_rate_data,
-            $json_booking_details
+            $json_booking_details,
+            $added_at,
+            $expires_at
         );
 
         // Execute and handle result
