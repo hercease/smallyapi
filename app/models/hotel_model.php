@@ -1549,6 +1549,8 @@ class Hotelmodels {
             $payment_method = $postData['payment_method'] ?? '';
             $platform_type = $postData['platform_type'];
             $user = $postData['user'] ?? '';
+             $timezone = $params['timezone'] ?? 'Africa/Lagos';
+            date_default_timezone_set($timezone);
 
             if($platform_type == 'smallyfares' && $payment_method == 'wallet'){
                 $wallet_balance = $this->userModel->fetchuserinfo($user)['wallet'] ?? 0;

@@ -130,6 +130,8 @@ class UserModel {
             $booking_details = $params['bookingDetails'] ?? null;
             $session_id = $params['session_id'] ?? null;
             $user_id = $this->sanitizeInput($params['user_id']) ?? null;
+            $timezone = $params['timezone'] ?? 'Africa/Lagos';
+            date_default_timezone_set($timezone);
 
             if (!$cart_item_id || !$room_data || !$rate_data || !$booking_details) {
                 throw new Exception('Missing required cart data');
