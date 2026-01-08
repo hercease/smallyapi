@@ -291,7 +291,7 @@ class UserModel {
 
         // Bind parameters
         $stmt->bind_param(
-            "sissss",
+            "sissssss",
             $cart_item_id,
             $userValue,
             $sessionValue,
