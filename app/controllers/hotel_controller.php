@@ -563,13 +563,14 @@ class HotelController{
                 ];
             }, $rateKeysArray);
 
-            //error_log(print_r($payload, true));
+            error_log(print_r($payload, true));
 
             // 3. Get authenticated token
             $token = $this->hotelModel->getAuthToken($apiKey);
 
             //error_log(print_r($_POST, true));
             $results = $this->hotelModel->getCheckRate($apiKey, $token['hash'], $payload);
+            error_log(print_r($results, true));
             
             sendSuccessResponse($results);
         }

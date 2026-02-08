@@ -1416,7 +1416,7 @@ class Hotelmodels {
 
         $ch = curl_init();
         curl_setopt_array($ch, [
-            CURLOPT_URL => "https://api.test.hotelbeds.com/hotel-api/1.2/checkrates",
+            CURLOPT_URL => "https://api-mtls.hotelbeds.com/hotel-api/1.0/checkrates",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_SSLCERT => $certPath,
             CURLOPT_SSLKEY => $keyPath,
