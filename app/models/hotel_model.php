@@ -1414,6 +1414,8 @@ class Hotelmodels {
             throw new RuntimeException("Invalid JSON: " . json_last_error_msg());
         }
 
+        error_log($jsonPayload);
+
         $ch = curl_init();
         curl_setopt_array($ch, [
             CURLOPT_URL => "https://api-mtls.hotelbeds.com/hotel-api/1.0/checkrates",
